@@ -8,7 +8,7 @@ pipeline{
     }
     stage('build docker image'){
       steps{
-        bat 'docker build -t tuts .'
+        bat 'docker build -t tut5 .'
       }
     }
     stage('deploy'){
