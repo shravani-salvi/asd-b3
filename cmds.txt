@@ -1,3 +1,4 @@
+git:
 mkdir git-lab-practical1
 cd git-lab-practical1
 git init
@@ -21,3 +22,51 @@ Feature Implementation: Backend REST Service Active and UI Dashboard Active
 git add app.txt
 git commit -m "Resolved merge conflict between main and feature-update"
 git log --oneline --graph
+
+airflow:
+wsl
+sudo apt update
+sudo apt install -y python3.14-venv
+mkdir -p "/mnt/c/Users/Shravani Salvi/airflow"
+cd "/mnt/c/Users/Shravani Salvi/airflow"
+python3.14 -m venv .venv
+source .venv/bin/activate
+export AIRFLOW_VERSION=3.2.0
+export PYTHON_VERSION=3.14
+python -m pip install --upgrade pip
+python -m pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+airflow version
+nano ~/airflow/airflow.cfg
+in [api] change port=8080 to 8081
+airflow standalone
+2nd wsl terminal
+cd "/mnt/c/Users/Shravani Salvi/airflow"
+source .venv/bin/activate
+airflow config get-value core dags_folder
+mkdir -p ~/airflow/dags
+nano ~/airflow/dags/print_datetime_dag.py
+code:
+import pendulum
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from airflow.sdk import dag, task
+
+@dag(
+    dag_id="print_datetime_every_wednesday",
+    schedule="30 9 * * 3",
+    start_date=pendulum.datetime(2026, 1, 1, tz="Asia/Kolkata"),
+    catchup=False,
+    tags=["practical"],
+)
+def print_datetime_dag():
+    @task
+    def print_date_time():
+        current_time = datetime.now(ZoneInfo("Asia/Kolkata"))
+        print("Current Date and Time (IST):", current_time.strftime("%d-%m-%Y %H:%M:%S"))
+
+    print_date_time()
+
+print_datetime_dag()
+Open http://localhost:8081
+cat /home/shravani/airflow/simple_auth_manager_passwords.json.generated for password
+ls -la /home/shravani/airflow/
