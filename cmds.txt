@@ -23,6 +23,116 @@ git add app.txt
 git commit -m "Resolved merge conflict between main and feature-update"
 git log --oneline --graph
 
+docker:
+docker --version
+docker info
+cd "C:\Users\Shravani Salvi"
+mkdir ecommerce-docker
+cd ecommerce-docker
+mkdir site
+notepad site\index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Basket - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Green Basket</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to Green Basket</h2>
+        <p>Everyday essentials, delivered simply.</p>
+        <a class="button" href="products.html">Shop products</a>
+    </main>
+    <footer>DevOps Docker practical</footer>
+</body>
+</html>
+notepad site\products.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Basket - Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Our Products</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Featured products</h2>
+        <article><h3>Organic Compost</h3><p>Rs. 199</p></article>
+        <article><h3>Reusable Bottle</h3><p>Rs. 299</p></article>
+        <article><h3>Cotton Tote</h3><p>Rs. 149</p></article>
+        <p>Demo catalogue - no real checkout</p>
+    </main>
+    <footer>DevOps Docker practical</footer>
+</body>
+</html>
+notepad site\style.css
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #20352a;
+    background: #f5faf5;
+}
+header, footer {
+    background: #1d563b;
+    color: white;
+    padding: 18px 7%;
+}
+nav a {
+    color: white;
+    margin-right: 18px;
+    text-decoration: none;
+}
+main {
+    padding: 35px 7%;
+    min-height: 55vh;
+}
+article {
+    display: inline-block;
+    background: white;
+    margin: 8px;
+    padding: 20px;
+    border-radius: 8px;
+}
+.button {
+    display: inline-block;
+    background: #1d563b;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+notepad Dockerfile
+
+FROM nginx:alpine
+COPY site/ /usr/share/nginx/html/
+EXPOSE 80
+docker build -t green-basket:1.0 .
+docker images
+docker run -d --name green-basket -p 8080:80 green-basket:1.0
+docker ps
+ren Dockerfile.txt Dockerfile
+docker rm green-basket
+
 ansible:
 sudo apt update
 sudo apt install -y ansible
