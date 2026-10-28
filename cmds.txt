@@ -23,6 +23,48 @@ git add app.txt
 git commit -m "Resolved merge conflict between main and feature-update"
 git log --oneline --graph
 
+ansible:
+sudo apt update
+sudo apt install -y ansible
+ansible --version
+mkdir -p ~/ansible-practical
+cd ~/ansible-practical
+cat > inventory.ini <<'EOF'
+[local]
+localhost ansible_connection=local
+EOF
+ansible -i inventory.ini local -m ping
+nano setup.yml
+---
+- name: Configure localhost for DevOps practical
+  hosts: local
+  become: true
+  tasks:
+    - name: Ensure curl is installed
+      ansible.builtin.apt:
+        name: curl
+        state: present
+        update_cache: true
+     - name: Create demonstration directory
+       ansible.builtin.file:
+         path: /opt/ansible-practical
+         state: directory
+         mode: "0755"
+     - name: Write configuration file
+       ansible.builtin.copy:
+         dest: /opt/ansible-practical/info.txt
+         content: |
+           Managed by Ansible.
+           Host: localhost
+           Purpose: DevOps practical examination.
+         owner: root
+         group: root
+         mode: "0644"
+ctrl+O enter ctrl+X
+ansible-playbook -i inventory.ini setup.yml --syntax-check
+ansible-playbook -i inventory.ini setup.yml --ask-become-pass
+cat /opt/ansible-practical/info.txt
+
 airflow:
 wsl
 sudo apt update
