@@ -1,6 +1,6 @@
 jenkins login : admin - 65f9d1185c3041028d968c5ec8b8b557/shravani48
 aws password : Han_Jisung_1409 shravanisalvi28@gmail.com
-arn:aws:dynamodb:ap-south-1:753036488105:table/Registrations
+arn:aws:iam::753036488105:u2f/root/shravani_salvi-O2GX6HDGJ5DWFJQBHL5Q333YEQ MFA
 
 
 git:
